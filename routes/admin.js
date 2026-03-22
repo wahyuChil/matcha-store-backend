@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const { authenticate, requireAdmin } = require('../middlewares/auth');
+const { createProduct, updateProduct, deleteProduct, getAllProductsAdmin } = require('../controllers/productController');
+const { getAllOrders, updateOrderStatus, getDashboard } = require('../controllers/orderController');
+router.use(authenticate, requireAdmin);
+router.get('/dashboard', getDashboard);
+router.get('/products', getAllProductsAdmin);
+router.post('/products', createProduct);
+router.put('/products/:id', updateProduct);
+router.delete('/products/:id', deleteProduct);
+router.get('/orders', getAllOrders);
+router.put('/orders/:id/status', updateOrderStatus);
+module.exports = router;
